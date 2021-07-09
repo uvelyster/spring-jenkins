@@ -12,7 +12,7 @@ pipeline{
             stash(name: 'build-artifact', includes: 'build/libs/*.jar')
           }
         }
-        stage('upload to artifactory')
+        stage('upload to artifactory'){
 	  agent{
 	    node{
 		label 'gradle'
@@ -31,7 +31,8 @@ pipeline{
               }"""
             server.upload(uploadSpec)
           }
-        stage('download and build container image')
+        }
+        stage('download and build container image'){
 	  agent{
 	    node{
 		label 'gradle'
@@ -40,7 +41,8 @@ pipeline{
           steps {
             sh echo ${BRANCH_NAME}
           }
-        stage('deploy')
+        }
+        stage('deploy'){
 	  agent{
 	    node{
 		label 'gradle'
@@ -49,6 +51,7 @@ pipeline{
           steps {
             sh echo ${BUILD_NUMBER}
           }
+        }
   }
 }
 
