@@ -63,6 +63,11 @@ pipeline{
           }
         }
         stage('deploy'){
+	  agent{
+	    node{
+		label 'master'
+	    }
+          }
           steps{
              sh 'kubectl apply -f deploy-app.yml'
           }
