@@ -41,7 +41,7 @@ pipeline{
 	    }
 	  } 
           steps {
-            sh echo ${BRANCH_NAME}
+            sh 'echo ${BRANCH_NAME}'
           }
         }
         stage('deploy'){
@@ -51,7 +51,7 @@ pipeline{
 	    }
 	  } 
           steps {
-            sh echo ${BUILD_NUMBER}
+            sh 'echo ${BUILD_NUMBER}'
           }
         }
   }
