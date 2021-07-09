@@ -43,7 +43,7 @@ pipeline{
           steps {
               unstash 'build-artifact'
               script {
-                myapp = docker.build("myregistry.com/root/demo/app:$(env.BUILD_ID}")
+                myapp = docker.build("myregistry.com/root/demo/app:${env.BUILD_ID}")
               }
           }
         }
