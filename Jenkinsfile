@@ -42,20 +42,28 @@ pipeline{
 	  } 
           steps {
               unstash 'build-artifact'
-              sh 'docker build -t myregistry.com/root/demo/app .'
-              
+              script {
+                myapp = docker.build("myregistry.com/root/demo/app:$(env.BUILD_ID}")
+              }
           }
         }
-        stage('deploy'){
+        stage('push'){
 	  agent{
 	    node{
 		label 'gradle'
 	    }
 	  } 
           steps {
-            sh 'echo ${BUILD_NUMBER}'
+            script {
+                    docker.withRegistry('https://myregistry.com', 'gitlab_login') {
+                            myapp.push("latest")
+                            myapp.push("${env.BUILD_ID}")
+            }
           }
         }
+        //stage('deploy'){
+          
+        //}
   }
 }
 
