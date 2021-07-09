@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-music
+  labels:
+    app: spring-music
+spec:
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: spring-music
+      tier: spring-music
+  template:
+    metadata:
+      labels:
+        app: spring-music
+        tier: spring-music
+    spec:
+      containers:
+      - name: mymusic
+        image: myregistry.com/root/spring-music/myapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: hello

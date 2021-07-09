@@ -43,7 +43,7 @@ pipeline{
           steps {
               unstash 'build-artifact'
               script {
-                myapp = docker.build("myregistry.com/root/demo/app:${env.BUILD_ID}")
+                myapp = docker.build("myregistry.com/root/spring-music/myapp:${env.BUILD_ID}")
               }
           }
         }
@@ -62,9 +62,11 @@ pipeline{
             }
           }
         }
-        //stage('deploy'){
-          
-        //}
+        stage('deploy'){
+          steps{
+             sh 'kubectl apply -f deploy-app.yml'
+          }
+        }
   }
 }
 
