@@ -19,17 +19,19 @@ pipeline{
 	    }
 	  } 
           steps {
-            unstash 'build-artifact'
-            def server = Artifactory.server 'Artifactory'
-            def uploadSpec = """{
-                "files": [
-                  {
-                    "pattern": "build/libs/*.jar",
-                    "target": "example-repo-local/${BRANCH_NAME}/${BUILD_NUMBER}/"
-                  }
-                ]
-              }"""
-            server.upload(uploadSpec)
+            scripts{
+              unstash 'build-artifact'
+              def server = Artifactory.server 'Artifactory'
+              def uploadSpec = """{
+                  "files": [
+                    {
+                      "pattern": "build/libs/*.jar",
+                      "target": "example-repo-local/${BRANCH_NAME}/${BUILD_NUMBER}/"
+                    }
+                  ]
+                }"""
+              server.upload(uploadSpec)
+            }
           }
         }
         stage('download and build container image'){
