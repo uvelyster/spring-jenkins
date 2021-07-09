@@ -19,7 +19,7 @@ pipeline{
 	    }
 	  } 
           steps {
-            scripts{
+            script {
               unstash 'build-artifact'
               def server = Artifactory.server 'Artifactory'
               def uploadSpec = """{
