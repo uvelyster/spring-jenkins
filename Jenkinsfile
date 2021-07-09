@@ -41,7 +41,9 @@ pipeline{
 	    }
 	  } 
           steps {
-            sh 'echo ${BRANCH_NAME}'
+              unstash 'build-artifact'
+              sh 'docker build -t myregistry.com/root/demo/app .'
+              
           }
         }
         stage('deploy'){
