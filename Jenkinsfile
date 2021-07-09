@@ -15,7 +15,7 @@ pipeline{
         stage('upload to artifactory'){
 	  agent{
 	    node{
-		label 'gradle'
+		label 'master'
 	    }
 	  } 
           steps {
@@ -37,7 +37,7 @@ pipeline{
         stage('download and build container image'){
 	  agent{
 	    node{
-		label 'gradle'
+		label 'master'
 	    }
 	  } 
           steps {
@@ -50,7 +50,7 @@ pipeline{
         stage('push'){
 	  agent{
 	    node{
-		label 'gradle'
+		label 'master'
 	    }
 	  } 
           steps {
@@ -58,6 +58,7 @@ pipeline{
                     docker.withRegistry('https://myregistry.com', 'gitlab_login') {
                             myapp.push("latest")
                             myapp.push("${env.BUILD_ID}")
+                    }
             }
           }
         }
