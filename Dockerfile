@@ -1,3 +1,4 @@
-FROM myregistry.com/root/demo/java
-ADD build/libs/spring-music_master-1.0.jar ./app.jar
+FROM java:8
+ADD build/libs/* ./app.jar
+EXPOSE 8080
 CMD ["java","-jar","app.jar"]
