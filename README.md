@@ -110,5 +110,5 @@ In `build.gradle`, uncomment the line `compile files('libs/ojdbc8.jar')` or `com
 
 #### Added 
 
-docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:6.3 gradle build -x test
-
+docker run --rm -u root -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:6.3 gradle build -x test
+docker run 
