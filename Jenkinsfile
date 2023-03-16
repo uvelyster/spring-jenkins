@@ -1,28 +1,28 @@
 pipeline{
   agent none
   stages{
-	  stage('gradle build'){
-	    agent{
-	      node{
-		      label 'gradle'
-	      }
-	    } 
+    stage('gradle build'){
+      agent{
+        node{
+          label 'gradle'
+	}
+      } 
       steps {
         sh 'gradle build -x test'
         stash(name: 'build-artifact', includes: 'build/libs/*.jar')
-        }
       }
+    }
     stage('upload to artifactory'){
-	   agent{
-	      node{
-	      	label 'master'
-	      }
-	    } 
+      agent{
+        node{
+          label 'master'
+	}
+      }
       steps {
         script {
           unstash 'build-artifact'
-         def server = Artifactory.server 'Artifactory'
-         def uploadSpec = """{
+          def server = Artifactory.server 'Artifactory'
+          def uploadSpec = """{
           "files": [
             {
               "pattern": "build/libs/*.jar",
