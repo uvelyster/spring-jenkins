@@ -15,7 +15,7 @@ pipeline{
     stage('upload to artifactory'){
       agent{
         node{
-          label 'master'
+          label 'built-in'
 	}
       }
       steps {
@@ -37,7 +37,7 @@ pipeline{
     stage('download and build container image'){
 	    agent{
 	     node{
-		    label 'master'
+		    label 'built-in'
 	      }
 	    } 
       steps {
@@ -50,7 +50,7 @@ pipeline{
     stage('push'){
 	    agent{
 	      node{
-		      label 'master'
+		      label 'built-in'
 	      }
 	    } 
       steps {
@@ -65,7 +65,7 @@ pipeline{
     stage('deploy'){
 	    agent{
 	      node{
-		      label 'master'
+		      label 'built-in'
 	      }
       }
       steps{
